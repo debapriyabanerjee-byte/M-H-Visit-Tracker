@@ -1,22 +1,21 @@
 // API service — the ONLY module that talks to Google Apps Script.
 // Every network call routes through here with retry + timeout handling.
 
-import {
-  APPS_SCRIPT_URL,
-  MAX_RETRIES,
-  REQUEST_TIMEOUT_MS,
-  RETRY_BASE_DELAY_MS,
-} from "@/constants";
+import { MAX_RETRIES, REQUEST_TIMEOUT_MS, RETRY_BASE_DELAY_MS } from "@/constants";
 import type { ApiResponse } from "@/types";
 import { logger } from "@/utils/logger";
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+function getAppsScriptUrl(): string {
+  return process.env.NEXT_PUBLIC_APPS_SCRIPT_URL?.trim() ?? "";
+}
+
 async function timedFetch(action: string, body: unknown): Promise<Response> {
   const controller = new AbortController();
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
   try {
-    return await fetch(APPS_SCRIPT_URL, {
+    return await fetch(getAppsScriptUrl(), {
       method: "POST",
       // text/plain avoids a CORS preflight against Apps Script.
       headers: { "Content-Type": "text/plain;charset=utf-8" },
@@ -29,7 +28,8 @@ async function timedFetch(action: string, body: unknown): Promise<Response> {
 }
 
 export async function postAction<T>(action: string, body: unknown): Promise<ApiResponse<T>> {
-  if (!APPS_SCRIPT_URL) {
+  const appsScriptUrl = getAppsScriptUrl();
+  if (!appsScriptUrl) {
     return {
       status: "error",
       message: "Apps Script URL is not configured. Set NEXT_PUBLIC_APPS_SCRIPT_URL.",

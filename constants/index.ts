@@ -5,7 +5,6 @@
 export const APP_NAME = "M&H Visit Tracker";
 export const APP_VERSION = process.env.NEXT_PUBLIC_APP_VERSION ?? "1.0.0";
 export const ENVIRONMENT = process.env.NEXT_PUBLIC_ENVIRONMENT ?? "production";
-export const APPS_SCRIPT_URL = process.env.NEXT_PUBLIC_APPS_SCRIPT_URL ?? "";
 
 export const PIPE = "|";
 
