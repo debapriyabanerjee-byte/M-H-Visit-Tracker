@@ -1,0 +1,7 @@
+Date,City,Leader,Zone,Status
+2026-08-01,Gurgaon,ID-ZH-0001,North,completed
+2026-08-04,Jaipur,ID-ZH-0001,North,completed
+2026-08-06,Mumbai,ID-RH-0002,West,completed
+2026-08-11,Kolkata,ID-SH-0003,East,pending
+2026-08-13,Bengaluru,ID-RM-0004,South,pending
+2026-08-18,Indore,ID-RM-0005,Central,future
