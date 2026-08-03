@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { FormSection } from "@/components/forms/form-section";
 import { DESIGNATIONS, ZONES } from "@/data/dropdowns";
 import { EMPLOYEE_MASTER, findEmployeeByCode } from "@/data/employeeMaster";
-import { CITIES } from "@/data/cities";
 import { accuracyLabel } from "@/utils/gps";
 import type { CommonVisitFields, GpsReading } from "@/types";
 
@@ -101,12 +100,10 @@ export function CommonDetails({
       </div>
 
       <Field label="Visit City" required error={errors.visitCity}>
-        <SearchableSelect
-          options={CITIES}
+        <Input
           value={value.visitCity}
-          onChange={(v) => onChange({ visitCity: v })}
-          placeholder="Search city"
-          invalid={!!errors.visitCity}
+          onChange={(e) => onChange({ visitCity: e.target.value })}
+          placeholder="Enter city"
         />
       </Field>
 
